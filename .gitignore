@@ -1,0 +1,31 @@
+# پوشه‌های Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# محیط مجازی
+venv/
+env/
+.venv/
+.virtualenv/
+
+# پوشه‌های Django
+*.log
+local_settings.py
+db.sqlite3
+/static/
+/media/
+
+# پوشه‌های IDE و ویرایشگر کد
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# پوشه‌های سیستم‌عامل
+.DS_Store
+Thumbs.db
+
+# فایل‌های محیط‌های مجازی
+env/
+venv/
