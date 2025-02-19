@@ -46,13 +46,8 @@ class TransactionBankToWaletViewSet(viewsets.ViewSet):
             return Response({"error": "Wallet not found."}, status=status.HTTP_404_NOT_FOUND)
 
         if bank.amount < amount:
-            return Response({"error": "Insufficient funds."}, status=status.HTTP_400_BAD_REQUEST)
-
-        if amount > 500:
-                staruser, created = StarUser.objects.get_or_create(user=request.user, defaults={"star": 0})
-                staruser.star = F("star") + 1
-                staruser.save(update_fields=["star"])
-                staruser.refresh_from_db()
+            return Response({"error": "Insufficient funds."}, status=status.HTTP_400_BAD_REQUEST)        
+        
         
         with trans.atomic():
             bank.amount -= amount
@@ -125,11 +120,6 @@ class TransactionWaletToWaletViewSet(viewsets.ViewSet):
             if sender.amount < amount:
                 return Response({"error": "Insufficient funds."}, status=status.HTTP_400_BAD_REQUEST)
 
-            if amount > 500:
-                staruser, created = StarUser.objects.get_or_create(user=request.user, defaults={"star": 0})
-                staruser.star = F("star") + 1
-                staruser.save(update_fields=["star"])
-                staruser.refresh_from_db()
             
             with trans.atomic():  
                 sender.amount -= amount
@@ -167,7 +157,3 @@ class TransactionWaletToWaletViewSet(viewsets.ViewSet):
         except Walet.DoesNotExist:
             return Response({"error": "One of the wallets was not found."}, status=status.HTTP_404_NOT_FOUND)
         
-
-
-
-    
